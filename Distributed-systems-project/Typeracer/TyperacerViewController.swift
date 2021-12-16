@@ -1,13 +1,7 @@
 import MultipeerConnectivity
 import UIKit
 
-class ViewController: UIViewController {
-    enum InputType {
-        case correct
-        case incorrect
-        case backspace
-    }
-    
+class TyperacerViewController: UIViewController {
     var nextLetterPointer: Int = 0 {
         didSet {
             if nextLetterPointer < 0 {
@@ -16,15 +10,15 @@ class ViewController: UIViewController {
         }
     }
 
-    private var incorrectRange = 0 {
+    private var incorrectCount = 0 {
         didSet {
-            if incorrectRange < 0 {
-                incorrectRange = 0
+            if incorrectCount < 0 {
+                incorrectCount = 0
             }
         }
     }
     
-    private var text: NSMutableAttributedString = .init(string: "Put into practical terms, if you’re the only person in the world who owns a cellphone, you can’t call anyone. But if another person gets one you can now make one connection, if five people have one then there are 10 possible connections, if 12 people get one then there are 66 possible connections, and so on – the value increases massively as more people join the network.")
+    private var text: NSMutableAttributedString = .init(string: "Put into practical terms, if you're the only person in the world who owns a cellphone, you can't call anyone. But if another person gets one you can now make one connection, if five people have one then there are 10 possible connections, if 12 people get one then there are 66 possible connections, and so on – the value increases massively as more people join the network.")
     
     lazy var textBar: UILabel = {
         let label = UILabel()
@@ -52,6 +46,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         inputField.delegate = self
         view.addSubview(textBar)
         view.addSubview(inputField)
@@ -63,11 +58,10 @@ class ViewController: UIViewController {
         textBar.translatesAutoresizingMaskIntoConstraints = false
         inputField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             textBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             textBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             textBar.heightAnchor.constraint(equalToConstant: 500),
-            
+            textBar.bottomAnchor.constraint(equalTo: inputField.topAnchor),
             inputField.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             inputField.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             inputField.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
@@ -76,8 +70,12 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITextFieldDelegate {
+extension TyperacerViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if incorrectCount >= 5, string != "" {
+            return false
+        }
+        
         switch string {
         case "":
             backspacePressed()
@@ -86,7 +84,7 @@ extension ViewController: UITextFieldDelegate {
             spacePressed()
             return false
         case String(text.string[nextLetterPointer]):
-            if incorrectRange == 0 {
+            if incorrectCount == 0 {
                 correctInput()
             } else {
                 incorrectInput()
@@ -99,7 +97,7 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
-extension ViewController {
+extension TyperacerViewController {
     func backspacePressed() {
         guard
             let attributedText = textBar.attributedText,
@@ -110,7 +108,7 @@ extension ViewController {
         
         if inputText != "" {
             nextLetterPointer -= 1
-            incorrectRange -= 1
+            incorrectCount -= 1
             let attributedString = NSMutableAttributedString(attributedString: attributedText)
             attributedString.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: nextLetterPointer, length: 1))
             textBar.attributedText = attributedString
@@ -123,11 +121,9 @@ extension ViewController {
         else {
             return
         }
-        if !input.isEmpty {
-            if incorrectRange == 0 {
-                nextLetterPointer += 1
-                inputField.text = ""
-            }
+        if !input.isEmpty, incorrectCount == 0, text.string[nextLetterPointer] == " " {
+            nextLetterPointer += 1
+            inputField.text = ""
         }
     }
     
@@ -152,7 +148,7 @@ extension ViewController {
         let attributedString = NSMutableAttributedString(attributedString: attributedText)
         attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: nextLetterPointer, length: 1))
         
-        incorrectRange += 1
+        incorrectCount += 1
         textBar.attributedText = attributedString
         nextLetterPointer += 1
     }
@@ -163,4 +159,3 @@ extension String {
         return self[index(startIndex, offsetBy: i)]
     }
 }
-
