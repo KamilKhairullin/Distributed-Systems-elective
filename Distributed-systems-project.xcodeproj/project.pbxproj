@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E39FDC1276E7DBF0025C9F0 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E39FDC0276E7DBF0025C9F0 /* StartScreenViewController.swift */; };
 		CE7E5712276BD5EC00F05FC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7E5711276BD5EC00F05FC5 /* AppDelegate.swift */; };
 		CE7E5714276BD5EC00F05FC5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7E5713276BD5EC00F05FC5 /* SceneDelegate.swift */; };
 		CE7E5719276BD5EC00F05FC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7E5717276BD5EC00F05FC5 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E39FDC0276E7DBF0025C9F0 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		CE7E570E276BD5EC00F05FC5 /* Distributed-systems-project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Distributed-systems-project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7E5711276BD5EC00F05FC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7E5713276BD5EC00F05FC5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E39FDBF276E7D860025C9F0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8E39FDC0276E7DBF0025C9F0 /* StartScreenViewController.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		CE7E5705276BD5EC00F05FC5 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 			children = (
 				CE7E5711276BD5EC00F05FC5 /* AppDelegate.swift */,
 				CE7E5713276BD5EC00F05FC5 /* SceneDelegate.swift */,
+				8E39FDBF276E7D860025C9F0 /* Network */,
 				CE7E5725276BD63200F05FC5 /* Typeracer */,
 				CE7E5728276BD64400F05FC5 /* Resources */,
 				CE7E571F276BD5EE00F05FC5 /* Info.plist */,
@@ -158,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7E572A276BDB3A00F05FC5 /* InputType.swift in Sources */,
+				8E39FDC1276E7DBF0025C9F0 /* StartScreenViewController.swift in Sources */,
 				CE7E5712276BD5EC00F05FC5 /* AppDelegate.swift in Sources */,
 				CE7E5714276BD5EC00F05FC5 /* SceneDelegate.swift in Sources */,
 				CE7E5727276BD63200F05FC5 /* TyperacerViewController.swift in Sources */,
